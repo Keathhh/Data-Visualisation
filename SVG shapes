@@ -1,0 +1,27 @@
+<!DOCTYPE html> 
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Data Visualisation Exercise 1"/>
+    <meta name="keywords" content="HTML, CSS"/>
+    <meta name="author" content="Keath Kor">
+
+    <title> Task 1.3 Drawing SVGs</title>
+</head>
+<body> 
+    <h1> Drawinbg Shapes with SVG </h1>
+
+    <svg width="500" height="60" styles="background-color:slategrey;">
+
+            <circle cx="25", cy="30", r="25" file="cornflowerblue" /> 
+    
+    </svg>
+    <br>
+    <br>
+    <footer style="color:grey">COS30045 Data Visualisation<br>
+            Keath Kor</footer>
+
+    </body>
+
+    
