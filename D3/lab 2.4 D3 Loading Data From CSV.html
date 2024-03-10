@@ -1,26 +1,56 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="description" content="Data Visualisation Exercise 1"/>
-    <meta name="keywords" content="HTML, CSS"/>
-    <meta name="author" content="Keath Kor">
-
-    <title> Drawing with Data</title>
-
-    <style>
-        #displayedImage {
-            max-width: 50%;
-            height: auto;
-            max-height: 10 px;
-            display: block;
-            margin: 0 auto;
-        }
-    </style>
+    <meta name="description" content="Data Visualisation Exercise 1" />
+    <meta name="keywords" content="HTML, CSS" />
+    <meta name="author" content="Keath Kor" />
+    <title>Task 2.4 loading data from CSV file</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 
 <body>
-    <h1>Pets and the Pandemic</h1>
-    <h2>Author: Keath Kor</h2>
+    <h1> Drawing with Data - Loading data from CSV file</h1>
+    <script>
+        var w = 500;
+        var h = 100;
+        var scale = 4; 
+        var bar_padding = 4;
+        var svg = d3.select("body").append("svg").attr("width", w).attr("height", h);
+
+        d3.csv("Task_2.4_data.csv").then(function(data) {
+            console.log(data);
+            wombatSightings = data;
+            barChart();
+        })
+
+        function barChart() {
+            svg.selectAll("rect").data(wombatSightings).enter().append("rect")
+            .attr("x", function (d, i) {
+                return i * (w / wombatSightings.length);
+            
+            }).attr("y", function (d) {
+                return h - (d.wombats * scale);
+            })
+            .attr("width", (w / wombatSightings.length) - bar_padding)
+            .attr("height", function (d) {
+                return d.wombats * scale;
+            }).style('fill', function (d) {
+                if(d.wombats <= 10) {
+                    return "pink"
+                }
+                else {
+                    return "rgb(110, 162, 245)"
+                }
+            })
+        }
+    </script>
+    <br>
+    <b>
+        <footer style="color: grey;">COS3005 Data Visualisation
+            Keath Kor<br> 
+        </footer>
+    </b>
 </body>
+
+</html>
