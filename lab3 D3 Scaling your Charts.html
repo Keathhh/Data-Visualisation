@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 Scaling your charts</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <h1>D3 Scaling your charts</h1>
+    <script>
+        //SVG dimensions and offsets
+        var w = 600;
+        var h = 200;
+        var offset = 10;
+        var padding = 15;
+
+        //Dataset 
+        var dataset = [
+            [5, 20],
+            [480, 90],
+            [250, 50],
+            [100, 30],
+            [330, 95],
+            [410, 12],
+            [475, 44],
+            [25, 67],
+            [85, 21],
+            [220, 88],
+
+            [50, 150],
+            [400, 180],
+        ];
+
+        //Creating SVG element 
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+        //Defining the x-scale mapping input data
+        var xScale = d3.scaleLinear()
+        .domain([d3.min(dataset, function(d) { return d[0]; }) - 20, d3.max(dataset, function(d) { return d[0]; }) + 100])
+            .range([padding, w - padding]);
+
+        //Defining the y-scale mapping input data 
+        var yScale = d3.scaleLinear()
+            .domain([0, d3.max(dataset, function(d) { return d[1]; }) + 10])
+            .range([h - padding, padding]);
+
+        //Drawing circles to illustrate data points
+        svg.selectAll("circle")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("cx", function(d) { return xScale(d[0]); })
+            .attr("cy", function(d) { return yScale(d[1]); })
+            .attr("r", 5)
+            .attr("fill", "slategrey")
+            .attr("fill", function(d, i) { return i >= 10 ? "red" : "slategrey"; });
+        //Adding text labels to data points
+        svg.selectAll("text")
+            .data(dataset)
+            .enter()
+            .append("text")
+            .attr("x", function(d) { return xScale(d[0]) + offset + padding; })
+            .attr("y", function(d) { return yScale(d[1]) - offset + padding; })
+            .style("font-style", "bold")
+            .style("fill", "green")
+            .text(function(d) { return d[0] + "," + d[1]; });
+    </script>
+</body>
+<footer style="color:grey"> COS 30045 Data Visualisation <br> Keath Kor</b></footer>
+</html>
